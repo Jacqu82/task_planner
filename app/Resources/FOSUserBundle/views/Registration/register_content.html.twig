@@ -1,0 +1,11 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+{{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
+    {{ form_row(form.email, { label: 'E-mail' }) }}
+    {{ form_row(form.username, { label: 'Nazwa użytkownika' }) }}
+    {{ form_row(form.plainPassword.first, { label: 'Hasło' }) }}
+    {{ form_row(form.plainPassword.second, { label: 'Potwierdź hasło' }) }}
+    <div>
+        <input type="submit" class="btn btn-success" value="Zarejestruj się" />
+    </div>
+{{ form_end(form) }}

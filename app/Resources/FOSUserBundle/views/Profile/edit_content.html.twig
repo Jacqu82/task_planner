@@ -1,0 +1,13 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+<h3>Edytuj swoje dane</h3>
+{{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
+
+    {{ form_row(form.username, { label: 'Nazwa użytkownika'}) }}
+    {{ form_row(form.email, { label: 'E-mail'}) }}
+    {{ form_row(form.current_password, { label: 'Hasło'}) }}
+    <div>
+        <input type="submit" class="btn btn-primary" value="Edytuj" />
+    </div>
+
+{{ form_end(form) }}
