@@ -77,3 +77,9 @@ fos_user:
     from_email:
         address: "noreply@yourcompany.com"
         sender_name: "No Reply"
+
+stof_doctrine_extensions:
+    default_locale: pl_PL
+    orm:
+        default:
+            timestampable: true

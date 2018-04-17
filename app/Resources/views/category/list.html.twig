@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <table class="table table-striped">
+        <tr>
+            <th>Nazwa</th>
+        </tr>
+        {% for category in categories %}
+            <tr>
+                <td>{{ category.name }}</td>
+        {% endfor %}
+    </table>
+
+{% endblock %}
+
