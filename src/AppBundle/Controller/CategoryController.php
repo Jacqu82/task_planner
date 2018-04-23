@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Category;
+use AppBundle\Entity\Task;
 use AppBundle\Form\CategoryType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -27,9 +28,9 @@ class CategoryController extends Controller
     {
         $form = $this->createForm(CategoryType::class);
         $form->handleRequest($request);
+        $em = $this->getDoctrine()->getManager();
 
         if ($form->isSubmitted()) {
-            $em = $this->getDoctrine()->getManager();
             $em->persist($form->getData());
             $em->flush();
         }

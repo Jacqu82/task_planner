@@ -4,11 +4,13 @@
 
     <table class="table table-striped">
         <tr>
-            <th>Nazwa</th>
+            <th>Kategorie:</th>
         </tr>
-        {% for category in categories %}
+        {% for category in user.categories %}
+            {#{{ dump(loop) }}#}
             <tr>
                 <td>{{ category.name }}</td>
+            </tr>
         {% endfor %}
     </table>
 

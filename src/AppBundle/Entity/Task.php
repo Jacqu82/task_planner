@@ -24,6 +24,11 @@ class Task
     private $id;
 
     /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="tasks")
+     */
+    private $user;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="tasks")
      */
     private $category;
@@ -264,5 +269,29 @@ class Task
     public function getComments()
     {
         return $this->comments;
+    }
+
+    /**
+     * Set user
+     *
+     * @param User $user
+     *
+     * @return Task
+     */
+    public function setUser(User $user)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

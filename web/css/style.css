@@ -4,3 +4,8 @@ body
     background-image: url("../img/darkdenim3.png");
 }
 
+.user
+{
+    float: right;
+    margin-top: -15px;
+}

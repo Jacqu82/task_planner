@@ -1,4 +1,52 @@
-
-<div class="container">
-    <h3><a href="{{ path('homepage') }}">Homepage</a></h3><hr/>
-</div>
+{% if not app.user %}
+    <div class="container">
+        <div class="navbar-header">
+            <div class="container text-center">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="{{ path('homepage') }}">Strona główna</a>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav">
+                        {#<li><a href="{{ path('club_show_all') }}">Kluby ekstraklasy</a></li>#}
+                        {#<li><a href="{{ path('round_show_all') }}">Terminarz ekstraklasy</a></li>#}
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="{{ path('fos_user_registration_register') }}">Utwórz konto</a>
+                        </li>
+                        <li><a href="{{ path('fos_user_security_login') }}">
+                                <span class="glyphicon glyphicon-log-in"></span> Zaloguj się
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% else %}
+    <div class="container">
+        <div class="navbar-header">
+            <div class="container text-center">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="{{ path('homepage') }}">Strona główna</a>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav">
+                        {#<li><a href="{{ path('admin_panel') }}">Admin Panel</a></li>#}
+                        {#<li><a href="{{ path('club_show_all') }}">Kluby ekstraklasy</a></li>#}
+                        {#<li><a href="{{ path('round_show_all') }}">Terminarz ekstraklasy</a></li>#}
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="user" style="margin-top: 15px;">Zalogowany jako
+                            <a class="user" href="{{ path('fos_user_profile_show') }}">{{ app.user.username }}</a>
+                        </li>
+                        <li><a href="{{ path('fos_user_security_logout') }}">
+                                <span class="glyphicon glyphicon-log-out"></span> Wyloguj
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}

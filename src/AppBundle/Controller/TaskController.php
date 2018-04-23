@@ -2,6 +2,8 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Category;
+use AppBundle\Entity\Task;
 use AppBundle\Form\TaskType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -24,11 +26,13 @@ class TaskController extends Controller
      */
     public function newAction(Request $request)
     {
-        $form = $this->createForm(TaskType::class);
+        $task = new Task();
+        $form = $this->createForm(TaskType::class, $task, ['user' => $this->getUser()]);
         $form->handleRequest($request);
+        $em = $this->getDoctrine()->getManager();
 
         if ($form->isSubmitted()) {
-            $em = $this->getDoctrine()->getManager();
+            $task->setUser($this->getUser());
             $em->persist($form->getData());
             $em->flush();
         }

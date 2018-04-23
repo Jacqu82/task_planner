@@ -23,7 +23,12 @@ class Category
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="Task", mappedBy="category")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="categories")
+     */
+    private $user;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Task", mappedBy="category", cascade={"persist"})
      */
     private $tasks;
 
@@ -113,5 +118,29 @@ class Category
     public function getTasks()
     {
         return $this->tasks;
+    }
+
+    /**
+     * Set user
+     *
+     * @param User $user
+     *
+     * @return Category
+     */
+    public function setUser(User $user)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }
