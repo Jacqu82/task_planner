@@ -46,6 +46,12 @@ class Task
     private $name;
 
     /**
+     * @ORM\Column(type="string", unique=true)
+     * @Gedmo\Slug(fields={"name"})
+     */
+    private $slug;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="description", type="string", length=255, nullable=true)
@@ -115,6 +121,22 @@ class Task
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param mixed $slug
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
     }
 
     /**

@@ -24,7 +24,7 @@ class TaskType extends AbstractType
             ->add('category', EntityType::class, [
                 'class' => Category::class,
                 'label' => 'Kategoria',
-                'placeholder' => 'Dodaj kategorię',
+                'placeholder' => 'Wybierz kategorię',
                 'query_builder' => function(CategoryRepository $repo) use ($user) {
                 return $repo->findCategoryByUser($user);
                 }

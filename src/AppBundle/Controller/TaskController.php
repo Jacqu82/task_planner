@@ -2,7 +2,6 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Category;
 use AppBundle\Entity\Task;
 use AppBundle\Form\TaskType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -35,9 +34,49 @@ class TaskController extends Controller
             $task->setUser($this->getUser());
             $em->persist($form->getData());
             $em->flush();
+
+            return $this->redirectToRoute('task_list');
         }
 
         return $this->render('task/new.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/list", name="task_list")
+     *
+     * @return Response
+     */
+    public function listAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $tasks = $em->getRepository(Task::class)->findAll();
+
+        return $this->render('task/list.html.twig', ['tasks' => $tasks]);
+    }
+
+    /**
+     * @Route("/edit/{slug}", name="task_edit")
+     *
+     * @param Request $request
+     * @param Task $task
+     * @return Response
+     */
+    public function editAction(Request $request, Task $task)
+    {
+        $form = $this->createForm(TaskType::class, $task, ['user' => $this->getUser()]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($form->getData());
+            $em->flush();
+
+            return $this->redirectToRoute('task_list');
+        }
+
+        return $this->render('task/edit.html.twig', [
             'form' => $form->createView()
         ]);
     }

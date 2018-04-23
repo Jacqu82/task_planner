@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <table class="table table-striped">
+        <tr>
+            <th>Twoje zadania:</th>
+            <th>Opis:</th>
+            <th>Kategoria:</th>
+            <th>Wykonane?</th>
+            <th>Data edycji</th>
+            <th>Data utworzenia</th>
+        </tr>
+        {% for task in app.user.tasks %}
+            <tr>
+                <td><a href="{{ path('task_edit', {slug: task.slug}) }}">{{ task.name }}</a></td>
+                <td>{{ task.description|raw }}</td>
+                <td>{{ task.category }}</td>
+                {% if task.isDone %}
+                    <td>Tak</td>
+                {% else %}
+                    <td>Nie</td>
+                {% endif %}
+                <td>{{ task.updatedAt|date('Y-m-d H:i:s') }}</td>
+                <td>{{ task.createdAt|date('Y-m-d H:i:s') }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}
+

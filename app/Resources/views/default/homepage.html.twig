@@ -1,8 +1,22 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-
-    <h1>Hello World</h1>
+    {% if app.user %}
+        <div class="container text-center">
+            <h2>Witaj {{ app.user.username|upper }}!</h2>
+            <hr/>
+            <a href="{{ path('task_list') }}" class="btn btn-success">Twoje zadania</a><br/><br/>
+            <a href="{{ path('category_list') }}" class="btn btn-info">Twoje kategorie zadań</a><br/><br/>
+            <a href="{{ path('task_new') }}" class="btn btn-default">Dodaj Twoje nowe zadanie</a><br/><br/>
+            <a href="{{ path('category_new') }}" class="btn btn-primary">Dodaj Kategorię</a><br/><br/>
+        </div>
+    {% else %}
+        <div class="container text-center">
+            <h2>Załóż konto aby móc korzystać z serwisu!</h2>
+            <a href="{{ path('fos_user_registration_register') }}" class="btn btn-info">Rejestracja</a><br/><br/>
+            <a href="{{ path('fos_user_security_login') }}" class="btn btn-success">Logowanie</a>
+        </div>
+    {% endif %}
 
 {% endblock %}
 
