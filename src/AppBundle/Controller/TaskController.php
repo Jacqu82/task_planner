@@ -57,6 +57,17 @@ class TaskController extends Controller
     }
 
     /**
+     * @Route("/show/{slug}", name="task_show")
+     *
+     * @param Task $task
+     * @return Response
+     */
+    public function showAction(Task $task)
+    {
+        return $this->render('task/show.html.twig', ['task' => $task]);
+    }
+
+    /**
      * @Route("/edit/{slug}", name="task_edit")
      *
      * @param Request $request
@@ -73,11 +84,26 @@ class TaskController extends Controller
             $em->persist($form->getData());
             $em->flush();
 
-            return $this->redirectToRoute('task_list');
+            return $this->redirectToRoute('task_show', ['slug' => $task->getSlug()]);
         }
 
         return $this->render('task/edit.html.twig', [
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/delete/{id}", name="task_delete")
+     *
+     * @param Task $task
+     * @return Response
+     */
+    public function deleteAction(Task $task)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($task);
+        $em->flush();
+
+        return new Response(null, 204);
     }
 }

@@ -3,9 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Category;
-use AppBundle\Entity\Task;
 use AppBundle\Form\CategoryType;
-use AppBundle\Form\DeleteType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -85,14 +83,17 @@ class CategoryController extends Controller
     }
 
     /**
-     * @Route("/delete/{slug}", name="category_delete")
+     * @Route("/delete/{id}", name="category_delete")
      *
      * @param Category $category
+     * @return Response
      */
     public function deleteAction(Category $category)
     {
         $em = $this->getDoctrine()->getManager();
         $em->remove($category);
         $em->flush();
+
+        return new Response(null, 204);
     }
 }

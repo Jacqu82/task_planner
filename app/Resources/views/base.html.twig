@@ -13,12 +13,16 @@
 <body>
 {% include 'default/header.html.twig' %}
 <div class="container">
+    <div class="row text-center text-uppercase">
+        <h2>Task Planner</h2><hr/>
+    </div>
     {% block body %}{% endblock %}
 </div>
 {% include 'default/footer.html.twig' %}
 
 {% block javascripts %}
     <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
 {% endblock %}
 </body>
 </html>

@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="container text-center">
+        <h3>Tytuł zadania - {{ task.name }}</h3>
+        <h3>Opis - {{ task.description|raw }}</h3>
+        <h3>Kategoria - {{ task.category }}</h3>
+        {% if task.isDone %}
+            <h3>Wykonane? - Tak</h3>
+        {% else %}
+            <h3>Wykonane? - Nie</h3>
+        {% endif %}
+        <h3>Data edycji - {{ task.updatedAt|date('Y-m-d H:i:s') }}</h3>
+        <h3>Data utworzenia - {{ task.createdAt|date('Y-m-d H:i:s') }}</h3>
+        <a href="{{ path('task_edit', {slug: task.slug}) }}" class="btn btn-warning">Edytuj zadanie</a>
+    </div>
+
+{% endblock %}
+

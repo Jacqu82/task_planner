@@ -2,18 +2,22 @@
 
 {% block body %}
 
-    <table class="table table-striped">
+    <table class="table">
+        <thead>
         <tr>
-            <th>Twoje zadania:</th>
+            <th>Tytuł zadania:</th>
             <th>Opis:</th>
             <th>Kategoria:</th>
             <th>Wykonane?</th>
             <th>Data edycji</th>
             <th>Data utworzenia</th>
+            <th>Akcja</th>
         </tr>
+        </thead>
+        <tbody>
         {% for task in app.user.tasks %}
-            <tr>
-                <td><a href="{{ path('task_edit', {slug: task.slug}) }}">{{ task.name }}</a></td>
+            <tr id="task">
+                <td><a href="{{ path('task_show', {slug: task.slug}) }}">{{ task.name }}</a></td>
                 <td>{{ task.description|raw }}</td>
                 <td>{{ task.category }}</td>
                 {% if task.isDone %}
@@ -23,9 +27,16 @@
                 {% endif %}
                 <td>{{ task.updatedAt|date('Y-m-d H:i:s') }}</td>
                 <td>{{ task.createdAt|date('Y-m-d H:i:s') }}</td>
+                <td><a href="{{ path('task_delete', {id: task.id}) }}" class="btn btn-danger js-task-delete">Usuń</a>
+                </td>
             </tr>
         {% endfor %}
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="7">Łączna liczba zadań: {{ app.user.tasks|length }}</td>
+        </tr>
+        </tfoot>
     </table>
 
 {% endblock %}
-

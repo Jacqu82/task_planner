@@ -9,3 +9,11 @@ body
     float: right;
     margin-top: -15px;
 }
+
+tfoot
+{
+    text-align: center;
+    padding: 5px;
+    width: 100%;
+    font-size: 18px;
+}
