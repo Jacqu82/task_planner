@@ -2,7 +2,9 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Comment;
 use AppBundle\Entity\Task;
+use AppBundle\Form\CommentType;
 use AppBundle\Form\TaskType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -60,11 +62,30 @@ class TaskController extends Controller
      * @Route("/show/{slug}", name="task_show")
      *
      * @param Task $task
+     * @param $request
      * @return Response
      */
-    public function showAction(Task $task)
+    public function showAction(Task $task, Request $request)
     {
-        return $this->render('task/show.html.twig', ['task' => $task]);
+        $this->denyAccessUnlessGranted('view', $task);
+
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            $em = $this->getDoctrine()->getManager();
+            $comment->setTask($task);
+            $em->persist($comment);
+            $em->flush();
+
+            return $this->redirectToRoute('task_show', ['slug' => $task->getSlug()]);
+        }
+
+        return $this->render('task/show.html.twig', [
+            'task' => $task,
+            'form' => $form->createView()
+        ]);
     }
 
     /**
@@ -76,6 +97,8 @@ class TaskController extends Controller
      */
     public function editAction(Request $request, Task $task)
     {
+        $this->denyAccessUnlessGranted('edit', $task);
+
         $form = $this->createForm(TaskType::class, $task, ['user' => $this->getUser()]);
         $form->handleRequest($request);
 
@@ -100,6 +123,8 @@ class TaskController extends Controller
      */
     public function deleteAction(Task $task)
     {
+        $this->denyAccessUnlessGranted('delete', $task);
+
         $em = $this->getDoctrine()->getManager();
         $em->remove($task);
         $em->flush();

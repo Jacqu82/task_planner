@@ -1,22 +1,35 @@
 $(document).ready(function () {
 
     //delete task
-    $('body').on('click', '.js-task-delete', function (e) {
+    var taskDelete = $('.js-task-delete');
+    taskDelete.on('click', function (e) {
         e.preventDefault();
         var btn = $(this);
-        var deleteUrl = btn.attr('href');
-        $.getJSON(deleteUrl, function () {
+        var deleteHref = btn.attr('href');
+        $.getJSON(deleteHref, function () {
             btn.closest('#task').remove();
         })
     });
 
     //delete category
-    $('body').on('click', '.js-category-delete', function (e) {
+    var categoryDelete = $('.js-category-delete');
+    categoryDelete.on('click', function (e) {
         e.preventDefault();
         var btn = $(this);
-        var deleteUrl = btn.attr('href');
-        $.getJSON(deleteUrl, function () {
+        var deleteHref = btn.attr('href');
+        $.getJSON(deleteHref, function () {
             btn.closest('#category').remove();
+        })
+    });
+
+    //delete comment
+    var commentDelete = $('.js-comment-delete');
+    commentDelete.on('click', function(e) {
+        e.preventDefault();
+        var btn = $(this);
+        var deleteHref = btn.attr('href');
+        $.getJSON(deleteHref, function () {
+            btn.closest('#comment').remove();
         })
     });
 
